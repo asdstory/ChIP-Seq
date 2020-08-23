@@ -1,4 +1,38 @@
-* From: https://hpc.nih.gov/apps/trinity.html
+# Reference: 
+*From: https://hpc.nih.gov/apps/trinity.html
+
+# Interactive job
+
+```sh
+[user@biowulf]$ sinteractive --cpus-per-task=6 --gres=lscratch:150 --mem=20g
+salloc.exe: Pending job allocation 46116226
+salloc.exe: job 46116226 queued and waiting for resources
+salloc.exe: job 46116226 has been allocated resources
+salloc.exe: Granted job allocation 46116226
+salloc.exe: Waiting for resource configuration
+salloc.exe: Nodes cn3144 are ready for job
+
+[user@cn3144]$ module load trinity
+[user@cn3144]$ cd /lscratch/$SLURM_JOB_ID
+[user@cn3144]$ cp -pr $TRINITY_ROOT/sample_data .
+[user@cn3144]$ cd sample_data/test_Trinity_Assembly
+[user@cn3144]$ ./runMe.sh
+#######################################################
+##  Run Trinity to Generate Transcriptome Assemblies ##
+#######################################################
+
+${TRINITY_HOME}/Trinity --seqType fq --max_memory 2G \
+              --left reads.left.fq.gz \
+              --right reads.right.fq.gz \
+              --SS_lib_type RF \
+              --CPU 4 
+[...snip...]
+
+[user@cn3144]$ exit
+salloc.exe: Relinquishing job allocation 46116226
+[user@biowulf]$
+```
+
 # To run Trinity on a single node, create a batch script similar to the following example.
 ```sh
 #! /bin/bash
