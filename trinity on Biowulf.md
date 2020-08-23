@@ -27,3 +27,9 @@ mv $out/Trinity-GG.fasta /data/$USER/trinity_out/$(basename $inbam .bam)-Trinity
 
 ```
 
+## Submit this job using the Slurm sbatch command.
+```sh
+biowulf$ sbatch --mem=30g --cpus-per-task=12 --gres=lscratch:150 trinity.sh /data/$USER/trinity_in/sample.bam
+```
+
+
